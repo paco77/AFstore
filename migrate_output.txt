@@ -1,0 +1,26 @@
+
+   INFO  Running migrations.  
+
+  2026_03_19_215208_create_product_tiendas_table  5.25ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'product_tiendas' already exists (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: sup_store, SQL: create table `product_tiendas` (`id` bigint unsigned not null auto_increment primary key, `tienda_id` bigint unsigned not null, `product_almacen_id` bigint unsigned not null, `cantidad` int not null default '0', `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:841
+    837Γûò             $exceptionType = $this->isUniqueConstraintError($e)
+    838Γûò                 ? UniqueConstraintViolationException::class
+    839Γûò                 : QueryException::class;
+    840Γûò 
+  Γ₧£ 841Γûò             throw new $exceptionType(
+    842Γûò                 $this->getNameWithReadWriteType(),
+    843Γûò                 $query,
+    844Γûò                 $this->prepareBindings($bindings),
+    845Γûò                 $e,
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOException::("SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'product_tiendas' already exists")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOStatement::execute()
+

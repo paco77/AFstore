@@ -1,0 +1,11 @@
+
+  GET|HEAD        product-almacen product-almacen.index ΓÇ║ ProductAlmacenControlleΓÇª
+  POST            product-almacen product-almacen.store ΓÇ║ ProductAlmacenControlleΓÇª
+  GET|HEAD        product-almacen/create product-almacen.create ΓÇ║ ProductAlmacenConΓÇª
+  GET|HEAD        product-almacen/{product_almacen} product-almacen.show ΓÇ║ ProdΓÇª
+  PUT|PATCH       product-almacen/{product_almacen} product-almacen.update ΓÇ║ ProducΓÇª
+  DELETE          product-almacen/{product_almacen} product-almacen.destroy ΓÇ║ ProductΓÇª
+  GET|HEAD        product-almacen/{product_almacen}/edit product-almacen.edit  ΓÇª
+
+          Showing [7] routes
+
