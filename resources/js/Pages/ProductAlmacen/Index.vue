@@ -137,9 +137,9 @@ const deleteProduct = (product) => {
             <div class="max-w-[1920px] mx-auto sm:px-6 lg:px-8">
                 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 border-b border-gray-200 flex justify-between items-center">
-                        <div class="flex items-center gap-4 w-1/2">
-                            <div class="relative flex-1">
+                    <div class="p-6 text-gray-900 border-b border-gray-200 flex flex-col lg:flex-row justify-between items-center gap-4">
+                        <div class="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-1/2">
+                            <div class="relative flex-1 w-full">
                                 <input v-model="search" type="text" class="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition" placeholder="Buscar productos..." />
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
@@ -147,7 +147,7 @@ const deleteProduct = (product) => {
                                     </svg>
                                 </div>
                             </div>
-                            <div class="shrink-0 flex items-center gap-2">
+                            <div class="shrink-0 flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto">
                                 <span class="text-sm text-gray-500">Registros por página:</span>
                                 <select v-model="perPage" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm">
                                     <option value="10">10</option>
@@ -157,11 +157,11 @@ const deleteProduct = (product) => {
                                 </select>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <a :href="route('product-almacen.export')" target="_blank" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 gap-2">
+                        <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                            <a :href="route('product-almacen.export')" target="_blank" class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150 gap-2">
                                 <DocumentArrowDownIcon class="w-5 h-5" /> Exportar a Excel
                             </a>
-                            <PrimaryButton @click="openCreateModal" class="flex items-center gap-2">
+                            <PrimaryButton @click="openCreateModal" class="w-full sm:w-auto flex justify-center items-center gap-2">
                                 <PlusIcon class="w-5 h-5" /> Nuevo Producto
                             </PrimaryButton>
                         </div>

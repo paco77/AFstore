@@ -14,13 +14,14 @@ class ProductTiendaController extends Controller
     {
         $query = ProductTienda::with(['tienda', 'productAlmacen']);
         
+        if (auth()->check() && auth()->user()->email === 'gabo@mail.com') {
+            $query->whereHas('tienda', function ($q) {
+                $q->where('nombre', 'like', '%VIAS%');
+            });
+        }
+        
         if ($request->has('search')) {
             $search = $request->search;
-            // The original search was on 'tienda' name OR 'productAlmacen' name/clave.
-            // The user's snippet implies filtering by a specific 'company_id' which is not available in this general index method.
-            // Assuming the intent is to search within productAlmacen for the main inventory list.
-            // If a specific company_id filter is needed, it should be passed as a request parameter.
-            // For now, I'll adapt the search to filter the main $query based on productAlmacen.
             $query->whereHas('productAlmacen', function($q) use ($search) {
                 $q->where('nombre', 'like', "%{$search}%")
                   ->orWhere('clave', 'like', "%{$search}%")

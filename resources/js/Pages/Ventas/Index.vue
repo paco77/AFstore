@@ -175,7 +175,7 @@ watch(() => page.props.flash?.ticket, (ticket) => {
             <div class="max-w-[1400px] mx-auto sm:px-6 lg:px-8 min-h-[calc(100vh-140px)] flex flex-col">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1">
                     <!-- Left Column: Cart & Checkout -->
-                    <div class="lg:col-span-7 xl:col-span-8 flex flex-col">
+                    <div class="lg:col-span-7 xl:col-span-8 flex flex-col order-2 lg:order-1">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg border border-gray-100 flex-1 flex flex-col">
                             <!-- Top Bar: Options -->
                             <div class="p-6 bg-gray-50 border-b border-gray-200">
@@ -302,7 +302,7 @@ watch(() => page.props.flash?.ticket, (ticket) => {
                     </div>
 
                     <!-- Right Column: Product Grid -->
-                    <div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-4">
+                    <div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-4 order-1 lg:order-2">
                         <!-- Search Bar -->
                         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-100 p-4 shrink-0">
                             <div class="relative">

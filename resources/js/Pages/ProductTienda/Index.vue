@@ -148,15 +148,15 @@ const deleteRecord = (record) => {
             <div class="max-w-[1920px] mx-auto sm:px-6 lg:px-8">
                 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 border-b border-gray-200 flex justify-between items-center">
-                        <div class="flex items-center gap-4 w-1/2">
-                            <div class="relative flex-1">
+                    <div class="p-6 text-gray-900 border-b border-gray-200 flex flex-col lg:flex-row justify-between items-center gap-4">
+                        <div class="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-1/2">
+                            <div class="relative flex-1 w-full">
                                 <input v-model="search" type="text" class="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition" placeholder="Buscar por nombre, clave o tipo..." />
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
                                 </div>
                             </div>
-                            <div class="shrink-0 flex items-center gap-2">
+                            <div class="shrink-0 flex items-center justify-between sm:justify-start gap-2 w-full sm:w-auto">
                                 <span class="text-sm text-gray-500">Registros por página:</span>
                                 <select v-model="perPage" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm text-sm">
                                     <option value="10">10</option>
@@ -166,7 +166,7 @@ const deleteRecord = (record) => {
                                 </select>
                             </div>
                         </div>
-                        <PrimaryButton v-if="$page.props.auth.user.email !== 'gabo@mail.com'" @click="openAssignModal" class="flex items-center gap-2">
+                        <PrimaryButton v-if="$page.props.auth.user.email !== 'gabo@mail.com'" @click="openAssignModal" class="w-full sm:w-auto flex justify-center items-center gap-2">
                             <PlusIcon class="w-5 h-5" /> Asignar Productos
                         </PrimaryButton>
                     </div>
@@ -176,9 +176,10 @@ const deleteRecord = (record) => {
                         <table class="min-w-full divide-y divide-gray-200 relative">
                             <thead class="bg-gray-50 sticky top-0 z-10 shadow-sm">
                                 <tr v-if="$page.props.auth.user.email === 'gabo@mail.com'">
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sucursal</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Producto (Clave)</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio Tienda</th>
                                 </tr>
                                 <tr v-else>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tienda</th>
@@ -194,6 +195,9 @@ const deleteRecord = (record) => {
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr v-for="item in inventory.data" :key="item.id" class="hover:bg-gray-50 transition-colors">
                                     <template v-if="$page.props.auth.user.email === 'gabo@mail.com'">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-bold text-gray-900">{{ item.tienda?.nombre }}</div>
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-500">{{ item.product_almacen?.tipo || '-' }}</div>
                                         </td>
@@ -213,7 +217,7 @@ const deleteRecord = (record) => {
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-lg font-black text-indigo-700">
-                                                ${{ (item.precio * 1.05).toFixed(2) }}
+                                                ${{ (item.precio * 1.07).toFixed(2) }}
                                             </div>
                                         </td>
                                     </template>

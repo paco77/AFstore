@@ -9,7 +9,8 @@ import { Link } from '@inertiajs/vue3';
         <!-- Background Image with Overlay -->
         <div class="fixed inset-0 z-0 overflow-hidden">
             <img 
-                src="/storage/images/logos2.png" 
+                src="/logo.png" 
+                @error="$event.target.src='/storage/images/logos2.png'"
                 alt="Background" 
                 class="h-full w-full object-cover blur-sm opacity-50 scale-105"
             />
@@ -20,7 +21,7 @@ import { Link } from '@inertiajs/vue3';
         <div class="relative z-10 flex w-full flex-col items-center">
             <div class="mb-8">
                 <Link href="/">
-                    <img src="/storage/images/logos2.png" alt="Logo" class="h-32 w-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-transform hover:scale-110 duration-500" />
+                    <img src="/logo.png" @error="$event.target.src='/storage/images/logos2.png'" alt="Logo" class="h-32 w-auto drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] transition-transform hover:scale-110 duration-500" />
                 </Link>
             </div>
 

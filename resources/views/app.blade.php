@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" type="image/png" href="/favicon.png">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,6 +15,15 @@
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
+        
+        <style>
+            /* Hacer que toda la app sea un poco más compacta en celulares y tablets */
+            @media (max-width: 768px) {
+                html {
+                    font-size: 14px;
+                }
+            }
+        </style>
     </head>
     <body class="font-sans antialiased">
         @inertia

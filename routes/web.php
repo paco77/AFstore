@@ -3,10 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 
 Route::get('/', function () {
     return redirect()->route('login');
+});
+
+Route::get('/link-storage', function () {
+    Artisan::call('storage:link');
+    return 'Storage link created successfully!';
 });
 
 Route::get('/dashboard', function () {
@@ -24,6 +30,58 @@ use App\Http\Controllers\VentaController; // Added this use statement
 use App\Http\Controllers\CorteController; // Added this use statement
 
 Route::middleware('auth')->group(function () {
+    Route::post('/upload-logo', function (\Illuminate\Http\Request $request) {
+        $request->validate([
+            'logo' => 'required|image|mimes:jpeg,png,jpg,webp|max:10240', // 10MB limit
+        ]);
+        
+        $file = $request->file('logo');
+        $path = public_path('logo.png');
+        
+        // Try to optimize with GD
+        $imageString = file_get_contents($file->getRealPath());
+        $image = @imagecreatefromstring($imageString);
+
+        if ($image !== false) {
+            $width = imagesx($image);
+            $height = imagesy($image);
+            
+            // Max dimensions for logo
+            $maxSize = 800;
+            
+            if ($width > $maxSize || $height > $maxSize) {
+                $ratio = min($maxSize / $width, $maxSize / $height);
+                $newWidth = (int) ($width * $ratio);
+                $newHeight = (int) ($height * $ratio);
+                
+                $newImage = imagecreatetruecolor($newWidth, $newHeight);
+                
+                // Preserve transparency
+                imagealphablending($newImage, false);
+                imagesavealpha($newImage, true);
+                $transparent = imagecolorallocatealpha($newImage, 255, 255, 255, 127);
+                imagefilledrectangle($newImage, 0, 0, $newWidth, $newHeight, $transparent);
+                
+                imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+                
+                // Save optimized PNG
+                imagepng($newImage, $path, 6);
+                imagedestroy($newImage);
+            } else {
+                // Image is small enough, just save as PNG preserving alpha
+                imagealphablending($image, false);
+                imagesavealpha($image, true);
+                imagepng($image, $path, 6);
+            }
+            imagedestroy($image);
+        } else {
+            // Fallback if GD fails
+            $file->move(public_path(), 'logo.png');
+        }
+
+        return back();
+    })->name('upload.logo');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div v-if="$page.props.auth.user.email !== 'gabo@mail.com'" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div v-if="$page.props.auth.user.email !== 'gabo@mail.com'" class="hidden space-x-8 xl:-my-px xl:ms-10 xl:flex">
                                 <NavLink :href="route('product-almacen.index')" :active="route().current('product-almacen.*')">
                                     Almacén
                                 </NavLink>
@@ -58,7 +58,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
 
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center">
+                        <div class="hidden xl:ms-6 xl:flex xl:items-center">
                             <!-- Settings Dropdown -->
                             <div class="relative ms-3">
                                 <Dropdown align="right" width="48">
@@ -105,7 +105,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-me-2 flex items-center sm:hidden">
+                        <div class="-me-2 flex items-center xl:hidden">
                             <button
                                 @click="
                                     showingNavigationDropdown =
@@ -153,14 +153,14 @@ const showingNavigationDropdown = ref(false);
                         block: showingNavigationDropdown,
                         hidden: !showingNavigationDropdown,
                     }"
-                    class="sm:hidden"
+                    class="xl:hidden"
                 >
                     <div v-if="$page.props.auth.user.email !== 'gabo@mail.com'" class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('ventas.index')" :active="route().current('ventas.index')">
-                            POS
+                            VENDER
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('ventas.history')" :active="route().current('ventas.history')">
                             Ventas
