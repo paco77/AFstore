@@ -52,7 +52,7 @@ class ProductAlmacenController extends Controller
             'nombre' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:50',
             'clave' => 'required|string|max:255|unique:product_almacens',
-            'imagen' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|max:10240',
             'precio_venta' => 'required|numeric|min:0',
             'precio_mayoreo' => 'required|numeric|min:0',
         ]);
@@ -82,7 +82,7 @@ class ProductAlmacenController extends Controller
             'nombre' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:50',
             'clave' => 'required|string|max:255|unique:product_almacens,clave,'.$productAlmacen->id,
-            'imagen' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|max:10240',
             'precio_venta' => 'required|numeric|min:0',
             'precio_mayoreo' => 'required|numeric|min:0',
         ]);

@@ -18,8 +18,58 @@ const uploadLogo = () => {
     });
 };
 
-const handleLogoChange = (e) => {
-    form.logo = e.target.files[0];
+const compressImage = (file, maxWidth = 800, maxHeight = 800, quality = 0.8) => {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = Math.round(height * (maxWidth / width));
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = Math.round(width * (maxHeight / height));
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+                
+                canvas.toBlob((blob) => {
+                    const compressedFile = new File([blob], file.name, {
+                        type: mimeType,
+                        lastModified: Date.now(),
+                    });
+                    resolve(compressedFile);
+                }, mimeType, quality);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+};
+
+const handleLogoChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        if (file.type.startsWith('image/')) {
+            form.logo = await compressImage(file, 500, 500); // 500x500 is enough for a logo
+        } else {
+            form.logo = file;
+        }
+    }
 };
 </script>
 

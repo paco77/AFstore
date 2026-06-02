@@ -46,15 +46,64 @@ const form = useForm({
     precio_mayoreo: ''
 });
 
-const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        form.imagen = file;
+const compressImage = (file, maxWidth = 800, maxHeight = 800, quality = 0.8) => {
+    return new Promise((resolve) => {
         const reader = new FileReader();
-        reader.onload = (e) => {
-            imagePreview.value = e.target.result;
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height = Math.round(height * (maxWidth / width));
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width = Math.round(width * (maxHeight / height));
+                        height = maxHeight;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+                
+                canvas.toBlob((blob) => {
+                    const compressedFile = new File([blob], file.name, {
+                        type: mimeType,
+                        lastModified: Date.now(),
+                    });
+                    resolve({ file: compressedFile, preview: event.target.result });
+                }, mimeType, quality);
+            };
+            img.src = event.target.result;
         };
         reader.readAsDataURL(file);
+    });
+};
+
+const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        if (file.type.startsWith('image/')) {
+            const { file: compressedFile, preview } = await compressImage(file);
+            form.imagen = compressedFile;
+            imagePreview.value = preview;
+        } else {
+            form.imagen = file;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                imagePreview.value = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     }
 };
 
