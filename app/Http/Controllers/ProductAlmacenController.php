@@ -18,7 +18,8 @@ class ProductAlmacenController extends Controller
         if ($request->has('search') && $request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('nombre', 'like', '%'.$request->search.'%')
-                  ->orWhere('clave', 'like', '%'.$request->search.'%');
+                  ->orWhere('clave', 'like', '%'.$request->search.'%')
+                  ->orWhere('tipo', 'like', '%'.$request->search.'%');
             });
         }
 

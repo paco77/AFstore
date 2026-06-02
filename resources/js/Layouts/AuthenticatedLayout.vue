@@ -31,11 +31,11 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div v-if="$page.props.auth.user.email !== 'gabo@mail.com'" class="hidden space-x-8 xl:-my-px xl:ms-10 xl:flex">
-                                <NavLink :href="route('product-almacen.index')" :active="route().current('product-almacen.*')">
+                                <NavLink :href="route('product-almacen.index')" :active="route().current('product-almacen.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Almacén
                                 </NavLink>
                                 <NavLink :href="route('product-tienda.index')" :active="route().current('product-tienda.*')">
-                                    Innventario Tiendas
+                                    Inventario Tiendas
                                 </NavLink>
                                 <NavLink :href="route('ventas.index')" :active="route().current('ventas.index')">
                                     Vender
@@ -43,16 +43,16 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('ventas.history')" :active="route().current('ventas.history')">
                                     Ventas
                                 </NavLink>
-                                <NavLink :href="route('compras.index')" :active="route().current('compras.index')">
+                                <NavLink :href="route('compras.index')" :active="route().current('compras.index')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Compras/Gastos
                                 </NavLink>
-                                <NavLink :href="route('cortes.index')" :active="route().current('cortes.*')">
+                                <NavLink :href="route('cortes.index')" :active="route().current('cortes.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Corte Caja
                                 </NavLink>
-                                <NavLink :href="route('tiendas.index')" :active="route().current('tiendas.*')">
+                                <NavLink :href="route('tiendas.index')" :active="route().current('tiendas.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Tiendas
                                 </NavLink>
-                                <NavLink :href="route('users.index')" :active="route().current('users.*')">
+                                <NavLink :href="route('users.index')" :active="route().current('users.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Usuarios
                                 </NavLink>
                             </div>
@@ -165,22 +165,22 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('ventas.history')" :active="route().current('ventas.history')">
                             Ventas
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('compras.index')" :active="route().current('compras.index')">
+                        <ResponsiveNavLink :href="route('compras.index')" :active="route().current('compras.index')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                             Compras/Gastos
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('cortes.index')" :active="route().current('cortes.*')">
+                        <ResponsiveNavLink :href="route('cortes.index')" :active="route().current('cortes.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                             Corte de Caja
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('product-almacen.index')" :active="route().current('product-almacen.*')">
+                        <ResponsiveNavLink :href="route('product-almacen.index')" :active="route().current('product-almacen.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                             Almacén
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('tiendas.index')" :active="route().current('tiendas.*')">
+                        <ResponsiveNavLink :href="route('tiendas.index')" :active="route().current('tiendas.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                             Tiendas
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('product-tienda.index')" :active="route().current('product-tienda.*')">
                             INVENTARIO TIENDAS
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('users.index')" :active="route().current('users.*')">
+                        <ResponsiveNavLink :href="route('users.index')" :active="route().current('users.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                             Usuarios
                         </ResponsiveNavLink>
                     </div>

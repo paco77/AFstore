@@ -140,7 +140,7 @@ const deleteProduct = (product) => {
                     <div class="p-6 text-gray-900 border-b border-gray-200 flex flex-col lg:flex-row justify-between items-center gap-4">
                         <div class="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-1/2">
                             <div class="relative flex-1 w-full">
-                                <input v-model="search" type="text" class="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition" placeholder="Buscar productos..." />
+                                <input v-model="search" type="text" class="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition" placeholder="Buscar por nombre, clave o tipo..." />
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />

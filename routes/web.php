@@ -86,14 +86,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // POS routes
-    Route::get('product-almacen-export', [ProductAlmacenController::class, 'export'])->name('product-almacen.export');
-    Route::resource('users', UserController::class);
-    Route::resource('product-almacen', ProductAlmacenController::class);
-    Route::resource('tiendas', TiendaController::class);
-    Route::resource('product-tienda', ProductTiendaController::class);
-    Route::resource('compras', App\Http\Controllers\CompraController::class);
-    
     // Sales routes
     Route::get('ventas/history', [VentaController::class, 'history'])->name('ventas.history');
     Route::get('ventas/export', [VentaController::class, 'export'])->name('ventas.export');
@@ -101,9 +93,22 @@ Route::middleware('auth')->group(function () {
     Route::get('ventas/{venta}/ticket', [VentaController::class, 'ticket'])->name('ventas.ticket');
     Route::resource('ventas', VentaController::class);
 
-    // Cortes routes
-    Route::get('cortes/create', [CorteController::class, 'create'])->name('cortes.create');
-    Route::resource('cortes', CorteController::class);
+    // Inventario Tienda (Only index accessible to Cajero)
+    Route::resource('product-tienda', ProductTiendaController::class)->only(['index']);
+
+    // Admin only routes
+    Route::middleware([\App\Http\Middleware\CheckAdmin::class])->group(function () {
+        Route::get('product-almacen-export', [ProductAlmacenController::class, 'export'])->name('product-almacen.export');
+        Route::resource('users', UserController::class);
+        Route::resource('product-almacen', ProductAlmacenController::class);
+        Route::resource('tiendas', TiendaController::class);
+        Route::resource('product-tienda', ProductTiendaController::class)->except(['index']);
+        Route::resource('compras', App\Http\Controllers\CompraController::class);
+        
+        // Cortes routes
+        Route::get('cortes/create', [CorteController::class, 'create'])->name('cortes.create');
+        Route::resource('cortes', CorteController::class);
+    });
 });
 
 require __DIR__.'/auth.php';

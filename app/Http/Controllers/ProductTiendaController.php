@@ -14,10 +14,14 @@ class ProductTiendaController extends Controller
     {
         $query = ProductTienda::with(['tienda', 'productAlmacen']);
         
-        if (auth()->check() && auth()->user()->email === 'gabo@mail.com') {
-            $query->whereHas('tienda', function ($q) {
-                $q->where('nombre', 'like', '%VIAS%');
-            });
+        if (auth()->check()) {
+            if (auth()->user()->email === 'gabo@mail.com') {
+                $query->whereHas('tienda', function ($q) {
+                    $q->where('nombre', 'like', '%VIAS%');
+                });
+            } elseif (auth()->user()->rol === 'Cajero') {
+                $query->where('company_id', auth()->user()->tienda_id);
+            }
         }
         
         if ($request->has('search')) {

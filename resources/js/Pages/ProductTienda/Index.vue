@@ -136,7 +136,7 @@ const deleteRecord = (record) => {
             <div class="flex items-center gap-2">
                 <ClipboardDocumentListIcon class="w-6 h-6 text-indigo-600" />
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    {{ $page.props.auth.user.email === 'gabo@mail.com' ? 'Catálogo de Precios' : 'Inventario por Tienda' }}
+                    {{ $page.props.auth.user.email === 'gabo@mail.com' || $page.props.auth.user.rol === 'Cajero' ? 'Catálogo de Precios' : 'Inventario por Tienda' }}
                 </h2>
             </div>
         </template>
@@ -166,7 +166,7 @@ const deleteRecord = (record) => {
                                 </select>
                             </div>
                         </div>
-                        <PrimaryButton v-if="$page.props.auth.user.email !== 'gabo@mail.com'" @click="openAssignModal" class="w-full sm:w-auto flex justify-center items-center gap-2">
+                        <PrimaryButton v-if="$page.props.auth.user.email !== 'gabo@mail.com' && $page.props.auth.user.rol !== 'Cajero'" @click="openAssignModal" class="w-full sm:w-auto flex justify-center items-center gap-2">
                             <PlusIcon class="w-5 h-5" /> Asignar Productos
                         </PrimaryButton>
                     </div>
@@ -175,7 +175,7 @@ const deleteRecord = (record) => {
                     <div class="overflow-x-auto overflow-y-auto max-h-[65vh]">
                         <table class="min-w-full divide-y divide-gray-200 relative">
                             <thead class="bg-gray-50 sticky top-0 z-10 shadow-sm">
-                                <tr v-if="$page.props.auth.user.email === 'gabo@mail.com'">
+                                <tr v-if="$page.props.auth.user.email === 'gabo@mail.com' || $page.props.auth.user.rol === 'Cajero'">
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sucursal</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Producto (Clave)</th>
@@ -192,7 +192,7 @@ const deleteRecord = (record) => {
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr v-for="item in inventory.data" :key="item.id" class="hover:bg-gray-50 transition-colors">
-                                    <template v-if="$page.props.auth.user.email === 'gabo@mail.com'">
+                                    <template v-if="$page.props.auth.user.email === 'gabo@mail.com' || $page.props.auth.user.rol === 'Cajero'">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-bold text-gray-900">{{ item.tienda?.nombre }}</div>
                                         </td>
