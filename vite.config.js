@@ -18,10 +18,10 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: '192.168.68.108',
+        host: '192.168.100.129',
         cors: true,
         hmr: {
-            host: '192.168.68.108',
+            host: '192.168.100.129',
         },
     },
 });

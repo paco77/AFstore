@@ -46,6 +46,24 @@ const form = useForm({
     precio_mayoreo: ''
 });
 
+const showingImageModal = ref(false);
+const selectedImageUrl = ref('');
+const selectedImageTitle = ref('');
+
+const viewImage = (url, title) => {
+    selectedImageUrl.value = url;
+    selectedImageTitle.value = title;
+    showingImageModal.value = true;
+};
+
+const closeImageModal = () => {
+    showingImageModal.value = false;
+    setTimeout(() => {
+        selectedImageUrl.value = '';
+        selectedImageTitle.value = '';
+    }, 300);
+};
+
 const compressImage = (file, maxWidth = 800, maxHeight = 800, quality = 0.8) => {
     return new Promise((resolve) => {
         const reader = new FileReader();
@@ -238,7 +256,7 @@ const deleteProduct = (product) => {
                                 <tr v-for="product in products.data" :key="product.id" class="hover:bg-gray-50 transition-colors">
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <div class="flex-shrink-0 h-10 w-10 mx-auto">
-                                            <img v-if="product.imagen" class="h-10 w-10 rounded-full object-cover border border-gray-200 shadow-sm" :src="'/storage/' + product.imagen" alt="" />
+                                            <img v-if="product.imagen" @click="viewImage('/storage/' + product.imagen, product.nombre)" class="h-10 w-10 rounded-full object-cover border border-gray-200 shadow-sm cursor-pointer hover:opacity-75 transition" :src="'/storage/' + product.imagen" alt="" />
                                             <div v-else class="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 border border-gray-200">
                                                 <CubeIcon class="h-6 w-6" />
                                             </div>
@@ -376,6 +394,27 @@ const deleteProduct = (product) => {
                         </PrimaryButton>
                     </div>
                 </form>
+            </div>
+        </Modal>
+
+        <!-- Image View Modal -->
+        <Modal :show="showingImageModal" @close="closeImageModal" maxWidth="md">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4 pb-2 border-b">
+                    <h2 class="text-lg font-medium text-gray-900">{{ selectedImageTitle }}</h2>
+                    <button @click="closeImageModal" class="text-gray-400 hover:text-gray-500 focus:outline-none transition-colors">
+                        <span class="sr-only">Cerrar</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex justify-center p-2">
+                    <img :src="selectedImageUrl" class="max-w-full max-h-[70vh] rounded-lg shadow-md object-contain" :alt="selectedImageTitle" />
+                </div>
+                <div class="flex items-center justify-end mt-4 pt-4 border-t border-gray-100">
+                    <PrimaryButton @click="closeImageModal">Cerrar</PrimaryButton>
+                </div>
             </div>
         </Modal>
     </AuthenticatedLayout>
