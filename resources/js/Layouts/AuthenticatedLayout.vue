@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div v-if="$page.props.auth.user.email !== 'gabo@mail.com'" class="hidden space-x-8 xl:-my-px xl:ms-10 xl:flex">
+                            <div v-if="$page.props.auth.user.rol !== 'Invitado'" class="hidden space-x-8 xl:-my-px xl:ms-10 xl:flex">
                                 <NavLink :href="route('product-almacen.index')" :active="route().current('product-almacen.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Almacén
                                 </NavLink>
@@ -155,7 +155,7 @@ const showingNavigationDropdown = ref(false);
                     }"
                     class="xl:hidden"
                 >
-                    <div v-if="$page.props.auth.user.email !== 'gabo@mail.com'" class="space-y-1 pb-3 pt-2">
+                    <div v-if="$page.props.auth.user.rol !== 'Invitado'" class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>

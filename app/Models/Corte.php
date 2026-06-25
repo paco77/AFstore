@@ -9,6 +9,7 @@ class Corte extends Model
     protected $fillable = [
         'user_id',
         'tienda_id',
+        'company_id',
         'total_efectivo',
         'total_tarjeta',
         'total_transferencia',

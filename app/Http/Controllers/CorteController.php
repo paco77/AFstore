@@ -74,6 +74,7 @@ class CorteController extends Controller
             $corte = Corte::create([
                 'user_id' => $user->id,
                 'tienda_id' => $user->tienda_id,
+                'company_id' => $user->tienda_id,
                 'total_efectivo' => $totales['efectivo'],
                 'total_tarjeta' => $totales['tarjeta'],
                 'total_transferencia' => $totales['transferencia'],

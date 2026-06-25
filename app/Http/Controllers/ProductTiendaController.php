@@ -15,7 +15,7 @@ class ProductTiendaController extends Controller
         $query = ProductTienda::with(['tienda', 'productAlmacen']);
         
         if (auth()->check()) {
-            if (auth()->user()->email === 'gabo@mail.com') {
+            if (auth()->user()->rol === 'Invitado') {
                 $query->whereHas('tienda', function ($q) {
                     $q->where('nombre', 'like', '%VIAS%');
                 });

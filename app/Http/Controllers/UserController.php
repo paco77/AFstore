@@ -39,7 +39,7 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'userName' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'rol' => 'required|in:Admin,Cajero',
+            'rol' => 'required|in:Admin,Cajero,Invitado',
             'tienda_id' => 'nullable|exists:tiendas,id',
         ]);
 
@@ -68,7 +68,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'userName' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'rol' => 'required|in:Admin,Cajero',
+            'rol' => 'required|in:Admin,Cajero,Invitado',
             'tienda_id' => 'nullable|exists:tiendas,id',
         ]);
 

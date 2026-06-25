@@ -16,7 +16,7 @@ Route::get('/link-storage', function () {
 });
 
 Route::get('/dashboard', function () {
-    if (auth()->user()->email === 'gabo@mail.com') {
+    if (auth()->user()->rol === 'Invitado') {
         return redirect()->route('product-tienda.index');
     }
     return Inertia::render('Dashboard');

@@ -213,6 +213,7 @@ const deleteUser = (user) => {
                         <select id="rol" v-model="userForm.rol" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full">
                             <option value="Cajero">Cajero</option>
                             <option value="Admin">Admin</option>
+                            <option value="Invitado">Invitado</option>
                         </select>
                         <InputError class="mt-2" :message="userForm.errors.rol" />
                     </div>
