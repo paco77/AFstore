@@ -28,6 +28,7 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\ProductTiendaController;
 use App\Http\Controllers\VentaController; // Added this use statement
 use App\Http\Controllers\CorteController; // Added this use statement
+use App\Http\Controllers\FridaVentaController;
 
 Route::middleware('auth')->group(function () {
     Route::post('/upload-logo', function (\Illuminate\Http\Request $request) {
@@ -92,6 +93,11 @@ Route::middleware('auth')->group(function () {
     Route::get('ventas/search', [VentaController::class, 'search'])->name('ventas.search');
     Route::get('ventas/{venta}/ticket', [VentaController::class, 'ticket'])->name('ventas.ticket');
     Route::resource('ventas', VentaController::class);
+
+    // Fridas Independent Sales routes
+    Route::get('fridas/history', [FridaVentaController::class, 'history'])->name('fridas.history');
+    Route::get('fridas/{frida}/ticket', [FridaVentaController::class, 'ticket'])->name('fridas.ticket');
+    Route::resource('fridas', FridaVentaController::class);
 
     // Inventario Tienda (Only index accessible to Cajero)
     Route::resource('product-tienda', ProductTiendaController::class)->only(['index']);

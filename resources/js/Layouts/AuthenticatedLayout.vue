@@ -43,6 +43,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('ventas.history')" :active="route().current('ventas.history')">
                                     Ventas
                                 </NavLink>
+                                <NavLink :href="route('fridas.index')" :active="route().current('fridas.*')">
+                                    Fridas
+                                </NavLink>
                                 <NavLink :href="route('cortes.index')" :active="route().current('cortes.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                                     Corte de Caja
                                 </NavLink>
@@ -170,6 +173,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('ventas.history')" :active="route().current('ventas.history')">
                             Ventas
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('fridas.index')" :active="route().current('fridas.*')">
+                            Fridas
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('cortes.index')" :active="route().current('cortes.*')" v-if="$page.props.auth.user.rol !== 'Cajero'">
                             Corte de Caja
